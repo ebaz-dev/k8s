@@ -46,12 +46,12 @@ spec:
       http:
         paths:
           - path: /.well-known/acme-challenge/*
-              pathType: Prefix
-              backend:
-                service:
-                  name: cm-acme-http-solver-kg85n  # Make sure this is the correct service
-                  port:
-                    number: 80
+            pathType: Prefix
+            backend:
+              service:
+                name: cm-acme-http-solver-kg85n  # Make sure this is the correct service
+                port:
+                  number: 80
           - path: /api/v1/users/?(.*)
             pathType: ImplementationSpecific
             backend:
