@@ -16,13 +16,13 @@ jobs:
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY_DEV }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.K8S_DEV_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SSH_HOST_DEV }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.K8S_HOST_DEV }} >> ~/.ssh/known_hosts
 
       - name: Deploy Ingress
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER_DEV }}@${{ secrets.SSH_HOST_DEV }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.K8S_USER_DEV }}@${{ secrets.K8S_HOST_DEV }} << 'EOF'
             set -e
             REPO_DIR="/home/admin/github/${{ github.repository }}"
             INFRA_DIR="/home/admin/github/${{ github.repository }}/INFRA"
@@ -40,4 +40,4 @@ jobs:
             echo "Deployment completed."
           EOF
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_DEV }}
+          SSH_PRIVATE_KEY: ${{ secrets.K8S_DEV_PRIVATE_KEY }}
