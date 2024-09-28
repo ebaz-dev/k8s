@@ -47,7 +47,7 @@ kind: Service
 metadata:
   name: nats-srv
 spec:
-  type: LoadBalancer  # Change this to LoadBalancer for external access
+  type: LoadBalancer
   selector:
     app: nats
   ports:
