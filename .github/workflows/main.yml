@@ -19,5 +19,6 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          ssh -i private_key admin@114.129.42.59'
-            kubectl apply -f /dev/ingress-srv.yaml
+          ssh -i private_key admin@114.129.42.59 << EOF
+          kubectl apply -f /dev/ingress-srv.yaml
+          EOF
