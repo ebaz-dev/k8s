@@ -29,13 +29,17 @@ spec:
               '2',
               '-SD',
               '-cid',
-              'ticketing',
+              'ebazaar_dev',
               '--store',
               'SQL',
               '--sql_driver',
               'mysql',
               '--sql_source',
-              'nats_dev:VOA2UD*Ci7U91@tcp(sql-db.ebazaar.mn:3306)/nats_dev'
+              'nats_dev:VOA2UD*Ci7U91@tcp(sql-db.ebazaar.mn:3306)/nats_dev',
+              '--user', 
+              'nats_dev',        # Replace with your desired username
+              '--pass', 
+              'VOA2UD*Ci7U91'     # Replace with your desired password
             ]
 ---
 apiVersion: v1
@@ -43,6 +47,7 @@ kind: Service
 metadata:
   name: nats-srv
 spec:
+  type: LoadBalancer  # Change this to LoadBalancer for external access
   selector:
     app: nats
   ports:
