@@ -13,12 +13,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy Ingress
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.K8S_DEV_PRIVATE_KEY }}
+      - name: Setup SSH Key
         run: |
-          echo "$SSH_PRIVATE_KEY" > private_key
-          chmod 600 private_key
-          ssh -i private_key admin@114.129.42.59 << EOF
-          kubectl apply -f /dev/ingress-srv.yaml
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY_DEV }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST_DEV }} >> ~/.ssh/known_hosts
+
+      - name: Deploy Ingress
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER_DEV }}@${{ secrets.SSH_HOST_DEV }} << 'EOF'
+            set -e
+            REPO_DIR="/home/admin/github/${{ github.repository }}"
+            INFRA_DIR="/home/admin/github/${{ github.repository }}/INFRA"
+            if [ ! -d "$REPO_DIR" ]; then
+              echo "Repository not found. Cloning..."
+              git clone git@github.com:${{ github.repository }} $REPO_DIR
+            else
+              echo "Repository found. Pulling latest changes..."
+              cd $REPO_DIR
+              git pull
+            fi
+            cd $INFRA_DIR
+            kubectl apply -f ingress-srv.yaml
+
+            echo "Deployment completed."
           EOF
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_DEV }}
