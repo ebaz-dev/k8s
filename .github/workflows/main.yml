@@ -10,20 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Check for changes
-      id: changes
-      run: |
-        git diff --exit-code HEAD^ HEAD -- dev/ingress-srv.yaml || echo "changed-ingress"
-
-    - name: Deploy Ingress
-      if: steps.changes.outputs.changed == 'changed-ingress'
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.K8S_DEV_PRIVATE_KEY }}
-      run: |
-        echo "$SSH_PRIVATE_KEY" > private_key
-        chmod 600 private_key
-        ssh -i private_key admin@114.129.42.59'
-          kubectl apply -f /dev/ingress-srv.yaml
+      - name: Deploy Ingress
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.K8S_DEV_PRIVATE_KEY }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          ssh -i private_key admin@114.129.42.59'
+            kubectl apply -f /dev/ingress-srv.yaml
