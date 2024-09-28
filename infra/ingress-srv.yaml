@@ -12,6 +12,19 @@ spec:
     - http01:
         ingress:
           class: nginx
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tls-secret
+spec:
+  secretName: tls-secret  # Desired secret name
+  issuerRef:
+    name: letsencrypt-dev
+    kind: ClusterIssuer
+  commonName: k8sapi-dev.ebazaar.mn
+  dnsNames:
+    - k8sapi-dev.ebazaar.mn
 
 ---
 apiVersion: networking.k8s.io/v1
@@ -27,7 +40,7 @@ spec:
   tls:
     - hosts:
         - k8sapi-dev.ebazaar.mn
-      secretName: tls-secret-x4g6n
+      secretName: tls-secret  # Referencing the Certificate secret name
   rules:
     - host: k8sapi-dev.ebazaar.mn
       http:
