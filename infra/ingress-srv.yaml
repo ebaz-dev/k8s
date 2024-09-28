@@ -27,7 +27,7 @@ spec:
   tls:
     - hosts:
         - k8sapi-dev.ebazaar.mn
-      secretName: tls-secret
+      secretName: tls-secret-x4g6n
   rules:
     - host: k8sapi-dev.ebazaar.mn
       http:
