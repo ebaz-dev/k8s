@@ -39,7 +39,7 @@ spec:
               '--user', 
               'nats_dev',        # Replace with your desired username
               '--pass', 
-              'VOA2UD*Ci7U91'     # Replace with your desired password
+              'NaTs@Dev$EBaz'     # Replace with your desired password
             ]
 ---
 apiVersion: v1
