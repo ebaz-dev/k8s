@@ -1,11 +1,33 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dev
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: development@ebazaar.mn
+    privateKeySecretRef:
+      name: letsencrypt-dev
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-service
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-dev"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true" 
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - k8sapi-dev.ebazaar.mn
+      secretName: tls-secret
   rules:
     - host: k8sapi-dev.ebazaar.mn
       http:
