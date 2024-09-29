@@ -12,6 +12,22 @@ spec:
     - http01:
         ingress:
           class: nginx
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: letsencrypt-prod
+  namespace: default
+spec:
+  secretName: letsencrypt-prod
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: k8sapi-dev.ebazaar.mn
+  dnsNames:
+  - k8sapi-dev.ebazaar.mn
+  
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
