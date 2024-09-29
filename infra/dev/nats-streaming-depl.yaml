@@ -48,6 +48,8 @@ metadata:
   name: nats-srv
 spec:
   type: LoadBalancer
+  externalIPs:
+    - 114.129.42.59
   selector:
     app: nats
   ports:
