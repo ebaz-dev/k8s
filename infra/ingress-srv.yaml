@@ -63,9 +63,11 @@ spec:
   externalIPs:
     - 114.129.42.59
   ports:
-    - port: 80
+    - name: http  # Add a name for the HTTP port
+      port: 80
       targetPort: 80
-    - port: 443
+    - name: https  # Add a name for the HTTPS port
+      port: 443
       targetPort: 443
   selector:
     app.kubernetes.io/component: controller
