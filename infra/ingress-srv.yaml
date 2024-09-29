@@ -17,17 +17,17 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: letsencrypt-prod
+  name: k8sapi-dev-cert
   namespace: default
 spec:
-  secretName: letsencrypt-prod
+  secretName: k8sapi-dev-cert
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
   commonName: k8sapi-dev.ebazaar.mn
   dnsNames:
   - k8sapi-dev.ebazaar.mn
-  
+
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
