@@ -42,7 +42,7 @@ spec:
   tls:
     - hosts:
         - k8sapi-dev.ebazaar.mn
-      secretName: letsencrypt-prod
+      secretName: k8sapi-dev-cert
   rules:
     - host: k8sapi-dev.ebazaar.mn
       http:
