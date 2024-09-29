@@ -59,10 +59,10 @@ spec:
                 name: auth-srv
                 port:
                   number: 3000
-          - path: /api/v1/customer/?(.*)
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: customer-srv
-                port:
-                  number: 3000
+          # - path: /api/v1/customer/?(.*)
+          #   pathType: ImplementationSpecific
+          #   backend:
+          #     service:
+          #       name: customer-srv
+          #       port:
+          #         number: 3000
