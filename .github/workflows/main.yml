@@ -38,6 +38,7 @@ jobs:
             kubectl apply -f ingress-srv.yaml
             kubectl apply -f expiration-redis-depl.yaml
             kubectl apply -f nats-streaming-depl.yaml
+            kubectl apply -f metallb-depl.yaml
 
             echo "Deployment completed."
           EOF
