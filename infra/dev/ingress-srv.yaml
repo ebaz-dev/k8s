@@ -61,6 +61,41 @@ spec:
                 name: customer-srv
                 port:
                   number: 3000
+          - path: /api/v1/order/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: order-srv
+                port:
+                  number: 3000
+          - path: /api/v1/product/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: product-srv
+                port:
+                  number: 3000
+          - path: /api/v1/inventory/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: inventory-srv
+                port:
+                  number: 3000
+          - path: /api/v1/payment/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: payment-srv
+                port:
+                  number: 3000
+          - path: /api/v1/integration/cola/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cola-integration-srv
+                port:
+                  number: 3000
 ---
 apiVersion: v1
 kind: Service
