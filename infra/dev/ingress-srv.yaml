@@ -96,6 +96,13 @@ spec:
                 name: cola-integration-srv
                 port:
                   number: 3000
+          - path: /api/v1/notification/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: notification-srv
+                port:
+                  number: 3000
 ---
 apiVersion: v1
 kind: Service
