@@ -35,7 +35,7 @@ spec:
               '--sql_driver',
               'mysql',
               '--sql_source',
-              'nats_prod:VOA2UD*Ci7U91@tcp(sql-db.ebazaar.mn:3306)/nats_prod',
+              'nats_prod:VOA2UD@Ci7U91@tcp(sql-db.ebazaar.mn:3306)/nats_prod',
               '--user', 
               'nats_prod',
               '--pass', 
