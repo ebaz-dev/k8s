@@ -39,7 +39,7 @@ spec:
               '--user', 
               'nats_prod',
               '--pass', 
-              'VOA2UD@Ci7U91'
+              'NaTs@Prod$EBaz'
             ]
 ---
 apiVersion: v1
