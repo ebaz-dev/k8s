@@ -29,17 +29,17 @@ spec:
               '2',
               '-SD',
               '-cid',
-              'ebazaar_dev',
+              'ebazaar_prod',
               '--store',
               'SQL',
               '--sql_driver',
               'mysql',
               '--sql_source',
-              'nats_dev:VOA2UD*Ci7U91@tcp(sql-db.ebazaar.mn:3306)/nats_dev',
+              'nats_dev:VOA2UD*Ci7U91@tcp(sql-db.ebazaar.mn:3306)/nats_prod',
               '--user', 
-              'nats_dev',
+              'nats_prod',
               '--pass', 
-              'NaTs@Dev$EBaz'
+              'VOA2UD@Ci7U91'
             ]
 ---
 apiVersion: v1
