@@ -1,0 +1,48 @@
+name: Deploy Changes
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "infra/prod/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.K8S_PROD_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.K8S_HOST_PROD }} >> ~/.ssh/known_hosts
+
+      - name: Deploy Ingress
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.K8S_USER_PROD }}@${{ secrets.K8S_HOST_PROD }} << 'EOF'
+            set -e
+            REPO_DIR="/home/admin/github/${{ github.repository }}"
+            INFRA_DIR="/home/admin/github/${{ github.repository }}/infra/prod"
+            if [ ! -d "$REPO_DIR" ]; then
+              echo "Repository not found. Cloning..."
+              git clone git@github.com:${{ github.repository }} $REPO_DIR
+            else
+              echo "Repository found. Pulling latest changes..."
+              cd $REPO_DIR
+              git pull
+            fi
+            cd $INFRA_DIR
+            kubectl apply -f ingress-srv.yaml
+            kubectl apply -f expiration-redis-depl.yaml
+            kubectl apply -f nats-streaming-depl.yaml
+            kubectl apply -f metallb-depl.yaml
+
+            echo "Deployment completed."
+          EOF
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.K8S_PROD_PRIVATE_KEY }}
