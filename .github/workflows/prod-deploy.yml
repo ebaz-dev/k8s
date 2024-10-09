@@ -1,4 +1,4 @@
-name: Deploy Changes
+name: Prod Deploy Changes
 
 on:
   push:

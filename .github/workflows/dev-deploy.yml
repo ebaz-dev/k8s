@@ -1,4 +1,4 @@
-name: Deploy Changes
+name: Dev Deploy Changes
 
 on:
   push:
