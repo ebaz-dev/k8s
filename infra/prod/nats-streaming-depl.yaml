@@ -37,9 +37,9 @@ spec:
               '--sql_source',
               'nats_dev:VOA2UD*Ci7U91@tcp(sql-db.ebazaar.mn:3306)/nats_dev',
               '--user', 
-              'nats_dev',        # Replace with your desired username
+              'nats_dev',
               '--pass', 
-              'NaTs@Dev$EBaz'     # Replace with your desired password
+              'NaTs@Dev$EBaz'
             ]
 ---
 apiVersion: v1
